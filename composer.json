@@ -1,0 +1,29 @@
+{
+    "name": "linkorb/data-router",
+    "description": "DataRouter: library for routing arbitrary data based on hierarchical rules",
+    "homepage": "http://www.github.com/linkorb/data-router",
+    "keywords": ["php", "data-router", "routing", "linkorb"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "LinkORB Engineering",
+            "email": "engineering@linkorb.com",
+            "role": "Development"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "symfony/expression-language": "^5.3",
+        "psr/log": "^1.0.1"
+    },
+    "require-dev": {
+        "symfony/yaml": "^5.3",
+        "monolog/monolog": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "LinkORB\\Component\\DataRouter\\": "src/"
+        }
+    },
+    "license": "MIT"
+}

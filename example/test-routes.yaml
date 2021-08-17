@@ -1,0 +1,47 @@
+
+routes:
+  prio:
+    description: p1 always, p2 during office hours
+    expression: |
+      alert.prio == 1 or (
+        alert.prio == 2 and (
+          date(now, 'D') in ['Mon','Tue','Wed','Thu','Fri']
+        ) and
+        date(now, 'H') >= 9 and
+        date(now, 'H') <= 18
+      )
+    routes:
+      squad-infra:
+        expression: "alert.squad=='sre'"
+        routes:
+          level1:
+            expression: "alert.duration<10"
+            output:
+              targets: alice
+              channel: slack
+              frequency: 180
+          level2:
+            expression: "alert.duration<20"
+            output:
+              targets: alice, bob
+              channel: sms
+              frequency: 120
+          level3:
+            # no expression, always matches
+            output:
+              targets: alice, bob, claire
+              channel: voice
+              frequency: 60
+
+      squad-frontend:
+        expression: "alert.squad=='frontend'"
+        output:
+          targets: bob
+          channel: mattermost
+          frequency: 120
+
+  catchall:
+    output:
+      targets: claire
+      channel: sms
+      frequency: 120
